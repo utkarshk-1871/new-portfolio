@@ -55,7 +55,7 @@ jobs:
   # main push: quality gate + deploy in a single job so re-runs don't
   # leave duplicate "github-pages" artifacts from a separate deploy job.
   deploy:
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
     runs-on: ubuntu-latest
     environment:
       name: github-pages
