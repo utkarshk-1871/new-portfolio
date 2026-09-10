@@ -5,6 +5,7 @@ on:
     branches: [main]
   pull_request:
     branches: [main]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -109,6 +110,15 @@ jobs:
       - uses: actions/upload-pages-artifact@v3
         with:
           path: out/
+
+      # Cancel a stuck deployment for this commit SHA before retrying (safe no-op if none).
+      - name: Cancel in-progress Pages deployment
+        continue-on-error: true
+        run: |
+          gh api "repos/${GITHUB_REPOSITORY}/pages/deployments/${GITHUB_SHA}/cancel" -X POST || true
+          sleep 15
+        env:
+          GH_TOKEN: ${{ github.token }}
 
       - uses: actions/deploy-pages@v4
         id: deployment
