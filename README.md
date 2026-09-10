@@ -8,16 +8,16 @@ This is a rewrite of the original [Flutter portfolio](https://github.com/utkarsh
 
 ## What's on the site
 
-| Section | Content |
-| --- | --- |
-| **Hero** | Name, tagline, rotating roles, 3D hero scene, CTAs |
-| **About** | Professional summary, stats (4+ years, 8+ apps, 6 industries) |
-| **Experience** | Zignuts Technolab — Mobile App Developer (Jul 2022 – Present) and Intern (Jan–Jul 2022) |
-| **Skills** | Dart, Flutter, Riverpod, Bloc, Firebase, CI/CD, and more across 7 categories |
-| **Projects** | 6 featured apps — Charades Game, Health Monitoring, White-Label Hospitality, Music Insights, Medical Tanker Management, SaaS Resource Management |
-| **Achievements** | 8+ apps delivered, Play/App Store releases, CI/CD pipelines |
-| **Education** | B.Tech CSE at CHARUSAT (2018–2022), High School at Advait Vidyaniketan |
-| **Contact** | Email, phone, GitHub, LinkedIn, resume |
+| Section          | Content                                                                                                                                          |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Hero**         | Name, tagline, rotating roles, 3D hero scene, CTAs                                                                                               |
+| **About**        | Professional summary, stats (4+ years, 8+ apps, 6 industries)                                                                                    |
+| **Experience**   | Zignuts Technolab — Mobile App Developer (Jul 2022 – Present) and Intern (Jan–Jul 2022)                                                          |
+| **Skills**       | Dart, Flutter, Riverpod, Bloc, Firebase, CI/CD, and more across 7 categories                                                                     |
+| **Projects**     | 6 featured apps — Charades Game, Health Monitoring, White-Label Hospitality, Music Insights, Medical Tanker Management, SaaS Resource Management |
+| **Achievements** | 8+ apps delivered, Play/App Store releases, CI/CD pipelines                                                                                      |
+| **Education**    | B.Tech CSE at CHARUSAT (2018–2022), High School at Advait Vidyaniketan                                                                           |
+| **Contact**      | Email, phone, GitHub, LinkedIn, resume                                                                                                           |
 
 ## Contact
 
