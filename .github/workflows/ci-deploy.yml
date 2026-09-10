@@ -1,0 +1,76 @@
+name: CI & Deploy
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - run: pnpm typecheck
+
+      - run: pnpm lint
+
+      - run: pnpm format:check
+
+      - run: pnpm test
+
+      - name: Build for GitHub Pages
+        run: pnpm build:pages
+        env:
+          NEXT_PUBLIC_BASE_PATH: /new-portfolio
+          NEXT_PUBLIC_SITE_URL: https://utkarshk-1871.github.io/new-portfolio
+
+      - run: pnpm check-links
+        env:
+          NEXT_PUBLIC_BASE_PATH: /new-portfolio
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: site
+          path: out/
+
+  deploy:
+    needs: quality
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          name: site
+          path: out/
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out/
+
+      - uses: actions/deploy-pages@v4
+        id: deployment
