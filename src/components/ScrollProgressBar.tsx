@@ -13,7 +13,7 @@ export function ScrollProgressBar() {
       const scrollTop = window.scrollY;
       const docHeight =
         document.documentElement.scrollHeight - window.innerHeight;
-      setProgress(docHeight > 0 ? (scrollTop / docHeight) * 100 : 0);
+      setProgress(docHeight > 0 ? scrollTop / docHeight : 0);
     };
 
     onScroll();
@@ -27,8 +27,8 @@ export function ScrollProgressBar() {
 
   return (
     <div
-      className="fixed top-0 left-0 z-50 h-0.5 bg-gradient-to-r from-[var(--color-gradient-start)] to-[var(--color-gradient-end)]"
-      style={{ width: `${progress}%` }}
+      className="bg-brand-gradient fixed inset-x-0 top-0 z-[60] h-[3px] origin-left"
+      style={{ transform: `scaleX(${progress})` }}
       aria-hidden="true"
     />
   );

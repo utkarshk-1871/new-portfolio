@@ -6,6 +6,7 @@ export const experience: ExperienceEntry[] = [
     company: "Zignuts Technolab Pvt Ltd",
     location: "Gandhinagar, Gujarat, India",
     period: "Jul 2022 – Present",
+    isCurrent: true,
     highlights: [
       "Developed and maintained production-grade Flutter apps with complex UI and backend integrations.",
       "Utilized Bloc and Riverpod for robust state management in scalable codebases.",

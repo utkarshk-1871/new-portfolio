@@ -8,6 +8,9 @@ import { ThemeRegistry } from "@/theme/ThemeContext";
 describe("ThemeToggle", () => {
   afterEach(() => {
     cleanup();
+    localStorage.removeItem("portfolio-theme");
+    document.documentElement.removeAttribute("data-theme");
+    document.documentElement.classList.remove("dark");
   });
 
   it("renders with accessible label", () => {
@@ -22,8 +25,9 @@ describe("ThemeToggle", () => {
     ).toBeInTheDocument();
   });
 
-  it("toggles theme on click", async () => {
+  it("toggles data-theme on click", async () => {
     const user = userEvent.setup();
+    document.documentElement.setAttribute("data-theme", "light");
 
     render(
       <ThemeRegistry>
@@ -31,11 +35,8 @@ describe("ThemeToggle", () => {
       </ThemeRegistry>,
     );
 
-    const button = screen.getByRole("button", { name: /switch to/i });
-    await user.click(button);
+    await user.click(screen.getByRole("button", { name: /switch to dark/i }));
 
-    expect(
-      screen.getByRole("button", { name: /switch to/i }),
-    ).toBeInTheDocument();
+    expect(document.documentElement.getAttribute("data-theme")).toBe("dark");
   });
 });

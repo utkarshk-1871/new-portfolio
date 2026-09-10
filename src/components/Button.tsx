@@ -1,11 +1,13 @@
 import Link from "next/link";
+import { ArrowRight, Download, Mail } from "lucide-react";
 
 interface ButtonProps {
   href: string;
   children: React.ReactNode;
-  variant?: "primary" | "secondary";
+  variant?: "primary" | "secondary" | "ghost";
   external?: boolean;
   className?: string;
+  icon?: "arrow" | "download" | "mail";
 }
 
 export function Button({
@@ -14,15 +16,27 @@ export function Button({
   variant = "primary",
   external = false,
   className = "",
+  icon,
 }: ButtonProps) {
   const base =
-    "inline-flex min-h-11 items-center justify-center rounded-xl px-6 py-2.5 text-sm font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]";
+    "inline-flex min-h-12 items-center justify-center gap-2 rounded-full px-8 text-base font-semibold transition-all duration-200 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-focus)]";
   const variants = {
     primary:
-      "bg-gradient-to-r from-[var(--color-gradient-start)] to-[var(--color-primary-muted)] text-white shadow-[var(--shadow-glow)] hover:opacity-90",
+      "bg-[var(--color-primary)] text-white shadow-lg shadow-[var(--color-primary)]/25 hover:scale-[1.03] hover:shadow-[var(--color-primary)]/40 active:scale-[0.98]",
     secondary:
-      "border border-[var(--color-border)] bg-[var(--color-surface)] text-[var(--color-text-primary)] hover:border-[var(--color-primary)] hover:text-[var(--color-primary)]",
+      "border border-[var(--color-border)] bg-[var(--color-input-bg)] text-[var(--color-text-primary)] backdrop-blur-md hover:scale-[1.03] hover:border-[var(--color-focus)] hover:bg-[var(--color-surface-light)] active:scale-[0.98]",
+    ghost:
+      "text-[var(--color-text-primary)] hover:bg-[var(--color-input-bg)] hover:scale-[1.03] active:scale-[0.98]",
   };
+
+  const iconNode =
+    icon === "arrow" ? (
+      <ArrowRight className="h-4 w-4" aria-hidden="true" />
+    ) : icon === "download" ? (
+      <Download className="h-4 w-4" aria-hidden="true" />
+    ) : icon === "mail" ? (
+      <Mail className="h-4 w-4" aria-hidden="true" />
+    ) : null;
 
   const classes = `${base} ${variants[variant]} ${className}`;
 
@@ -35,6 +49,7 @@ export function Button({
         rel="noopener noreferrer"
       >
         {children}
+        {iconNode}
       </a>
     );
   }
@@ -47,6 +62,7 @@ export function Button({
     return (
       <a href={href} className={classes}>
         {children}
+        {iconNode}
       </a>
     );
   }
@@ -54,6 +70,7 @@ export function Button({
   return (
     <Link href={href} className={classes}>
       {children}
+      {iconNode}
     </Link>
   );
 }

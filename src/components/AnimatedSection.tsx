@@ -15,7 +15,7 @@ export function AnimatedSection({
   className = "",
   id,
 }: AnimatedSectionProps) {
-  const [ref, isInView] = useInViewport<HTMLElement>(0.12);
+  const [ref, isInView] = useInViewport<HTMLElement>(0.08);
   const reducedMotion = useReducedMotion();
 
   if (reducedMotion) {
@@ -31,9 +31,9 @@ export function AnimatedSection({
       ref={ref}
       id={id}
       className={className}
-      initial={{ opacity: 0, y: 32 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 32 }}
-      transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+      initial={{ opacity: 1, y: 28 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 1, y: 28 }}
+      transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
     >
       {children}
     </motion.section>

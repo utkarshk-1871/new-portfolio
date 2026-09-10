@@ -1,5 +1,4 @@
 import { About } from "@/sections/About";
-import { Achievements } from "@/sections/Achievements";
 import { Contact } from "@/sections/Contact";
 import { Education } from "@/sections/Education";
 import { Experience } from "@/sections/Experience";
@@ -13,10 +12,9 @@ export default function HomePage() {
     <>
       <Hero />
       <About />
-      <Experience />
       <Skills />
+      <Experience />
       <Projects />
-      <Achievements />
       <Education />
       <Contact />
       <Footer />

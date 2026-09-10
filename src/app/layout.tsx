@@ -3,6 +3,8 @@ import localFont from "next/font/local";
 import Script from "next/script";
 
 import { Navbar } from "@/components/Navbar";
+import { BackgroundParticles } from "@/components/BackgroundParticles";
+import { CursorGlow } from "@/components/CursorGlow";
 import { ScrollProgressBar } from "@/components/ScrollProgressBar";
 import { getPersonJsonLd, siteMetadata } from "@/lib/seo";
 import { getThemeInitScript } from "@/lib/theme-script";
@@ -83,9 +85,11 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${inter.variable} ${spaceGrotesk.variable} antialiased`}
+        className={`${inter.variable} ${spaceGrotesk.variable} ambient-bg antialiased`}
       >
         <ThemeRegistry>
+          <BackgroundParticles />
+          <CursorGlow />
           <ScrollProgressBar />
           <Navbar />
           <main>{children}</main>

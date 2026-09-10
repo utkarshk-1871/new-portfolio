@@ -1,39 +1,27 @@
 import { AnimatedSection } from "@/components/AnimatedSection";
 import { SectionHeading } from "@/components/SectionHeading";
+import { Timeline } from "@/components/Timeline";
 import { education } from "@/data/education";
 
 export function Education() {
+  const entries = education.map((entry) => ({
+    id: entry.institution,
+    period: entry.period,
+    title: entry.degree,
+    subtitle: entry.institution,
+    location: entry.location,
+    meta: entry.cgpa ? `CGPA: ${entry.cgpa}` : undefined,
+  }));
+
   return (
     <AnimatedSection
       id="education"
-      className="scroll-mt-[72px] border-t border-[var(--color-border)] py-20 md:py-28"
+      className="relative scroll-mt-28 py-24 sm:py-32"
     >
-      <div className="mx-auto max-w-7xl px-5 md:px-10 lg:px-20">
-        <SectionHeading
-          title="Education"
-          subtitle="Academic background and qualifications."
-        />
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
-          {education.map((entry) => (
-            <article
-              key={entry.institution}
-              className="rounded-2xl border border-[var(--color-border)] bg-[var(--color-surface)] p-6 shadow-[var(--shadow-card)]"
-            >
-              <h3 className="font-display text-xl font-semibold text-[var(--color-text-primary)]">
-                {entry.degree}
-              </h3>
-              <p className="mt-2 text-[var(--color-primary)]">
-                {entry.institution}
-              </p>
-              <p className="mt-1 text-sm text-[var(--color-text-secondary)]">
-                {entry.location}
-              </p>
-              <time className="mt-3 block text-sm font-medium text-[var(--color-text-secondary)]">
-                {entry.period}
-              </time>
-            </article>
-          ))}
-        </div>
+      <div className="container flex flex-col gap-16">
+        <SectionHeading eyebrow="Education" title="Academic foundation" />
+
+        <Timeline entries={entries} variant="education" />
       </div>
     </AnimatedSection>
   );

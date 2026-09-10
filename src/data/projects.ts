@@ -13,6 +13,7 @@ export const projects: ProjectEntry[] = [
       "Google Ads",
       "In-App Purchases",
     ],
+    imageSrc: "/images/projects/charades-game.jpg",
   },
   {
     id: "health-monitoring",
@@ -26,6 +27,7 @@ export const projects: ProjectEntry[] = [
       "Crashlytics",
       "Method Channel",
     ],
+    imageSrc: "/images/projects/health-monitoring.jpg",
   },
   {
     id: "hospitality-app",
@@ -33,6 +35,7 @@ export const projects: ProjectEntry[] = [
     description:
       "Scalable white-label apps for hotels, bars, and golf clubs with automated CI/CD deployments.",
     technologies: ["Flutter", "Riverpod", "Firebase", "Google Maps", "CI/CD"],
+    imageSrc: "/images/projects/hospitality-app.jpg",
   },
   {
     id: "music-insights",
@@ -46,6 +49,7 @@ export const projects: ProjectEntry[] = [
       "Push Notifications",
       "Google Maps",
     ],
+    imageSrc: "/images/projects/music-insights.jpg",
   },
   {
     id: "medical-tanker",
@@ -53,6 +57,7 @@ export const projects: ProjectEntry[] = [
     description:
       "Custom responsive UI for tanker tracking and admin tools with custom data tables.",
     technologies: ["Flutter", "Bloc", "Responsive Web Design", "Custom Tables"],
+    imageSrc: "/images/projects/medical-tanker.jpg",
   },
   {
     id: "saas-resource",
@@ -66,5 +71,6 @@ export const projects: ProjectEntry[] = [
       "Crashlytics",
       "Geofencing",
     ],
+    imageSrc: "/images/projects/saas-resource.jpg",
   },
 ];

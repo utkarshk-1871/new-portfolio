@@ -1,54 +1,75 @@
-import { Code, Link as LinkIcon, Mail, FileText, Phone } from "lucide-react";
+"use client";
 
-import { profile } from "@/data/profile";
-import { resumeUrl, socialLinks } from "@/data/social";
+import { Globe, Mail } from "lucide-react";
 
-const iconMap: Record<string, React.ReactNode> = {
-  GitHub: <Code size={18} />,
-  LinkedIn: <LinkIcon size={18} />,
-  Email: <Mail size={18} />,
-  Phone: <Phone size={18} />,
-  Resume: <FileText size={18} />,
-};
+import { GitHubIcon, LinkedInIcon } from "@/components/icons/SocialBrandIcons";
+import { socialLinks } from "@/data/social";
 
-export function SocialLinks({ className = "" }: { className?: string }) {
-  const links = socialLinks.filter(
-    (link) => link.label !== "Email" && link.label !== "Phone",
+const iconMap = {
+  GitHub: GitHubIcon,
+  LinkedIn: LinkedInIcon,
+  Email: Mail,
+  Portfolio: Globe,
+} as const;
+
+interface SocialLinksProps {
+  className?: string;
+  variant?: "default" | "hero";
+}
+
+export function SocialLinks({
+  className = "",
+  variant = "default",
+}: SocialLinksProps) {
+  const heroLinks = socialLinks.filter(
+    (link) =>
+      link.label === "GitHub" ||
+      link.label === "LinkedIn" ||
+      link.label === "Email",
   );
+
+  const links = variant === "hero" ? heroLinks : socialLinks;
+
+  if (variant === "hero") {
+    return (
+      <div className={`flex items-center gap-2 ${className}`}>
+        {heroLinks.map((link) => {
+          const Icon = iconMap[link.label as keyof typeof iconMap] ?? Globe;
+          return (
+            <a
+              key={link.label}
+              href={link.href}
+              aria-label={link.label}
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] text-[var(--color-text-secondary)] transition-all hover:scale-110 hover:border-[var(--color-primary)]/40 hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+              target={link.external ? "_blank" : undefined}
+              rel={link.external ? "noopener noreferrer" : undefined}
+            >
+              <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+            </a>
+          );
+        })}
+      </div>
+    );
+  }
 
   return (
     <div className={`flex flex-wrap gap-3 ${className}`}>
-      {links.map((link) => (
-        <a
-          key={link.label}
-          href={link.href}
-          className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
-          target={link.external ? "_blank" : undefined}
-          rel={link.external ? "noopener noreferrer" : undefined}
-          aria-label={`Open ${link.label}`}
-        >
-          {iconMap[link.label]}
-          <span>{link.label}</span>
-        </a>
-      ))}
-      <a
-        href={`mailto:${profile.email}`}
-        className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
-        aria-label="Send email"
-      >
-        <Mail size={18} />
-        <span>Email</span>
-      </a>
-      <a
-        href={resumeUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="inline-flex min-h-11 items-center gap-2 rounded-xl border border-[var(--color-border)] bg-[var(--color-surface)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-primary)] hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
-        aria-label="Open resume"
-      >
-        <FileText size={18} />
-        <span>Resume</span>
-      </a>
+      {links.map((link) => {
+        const Icon = iconMap[link.label as keyof typeof iconMap] ?? Globe;
+        return (
+          <a
+            key={link.label}
+            href={link.href}
+            className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[var(--glass-border)] bg-[var(--glass-bg)] px-4 py-2 text-sm font-medium text-[var(--color-text-primary)] transition-colors hover:border-[var(--color-primary)]/40 hover:text-[var(--color-primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--color-primary)]"
+            target={link.external ? "_blank" : undefined}
+            rel={link.external ? "noopener noreferrer" : undefined}
+            aria-label={`Open ${link.label}`}
+          >
+            <Icon className="h-[18px] w-[18px]" aria-hidden="true" />
+            <span>{link.label}</span>
+          </a>
+        );
+      })}
     </div>
   );
 }
