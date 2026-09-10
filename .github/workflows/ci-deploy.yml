@@ -13,9 +13,11 @@ permissions:
   id-token: write
   actions: write # required to delete stale github-pages artifacts on job re-runs
 
+# Do not cancel in-progress deploy runs. Cancelling during deploy-pages leaves a
+# zombie Pages deployment that blocks every subsequent deploy for ~10 minutes.
 concurrency:
   group: pages
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
   # PRs: validate only — no deploy, no Pages artifacts
@@ -111,11 +113,14 @@ jobs:
         with:
           path: out/
 
-      # Cancel a stuck deployment for this commit SHA before retrying (safe no-op if none).
-      - name: Cancel in-progress Pages deployment
+      # Rapid pushes can orphan in-progress Pages deployments under a different SHA
+      # than the current commit. Cancel recent main commits (safe no-op if idle).
+      - name: Cancel stale in-progress Pages deployments
         continue-on-error: true
         run: |
-          gh api "repos/${GITHUB_REPOSITORY}/pages/deployments/${GITHUB_SHA}/cancel" -X POST || true
+          for sha in $(git log --format=%H -n 15); do
+            gh api "repos/${GITHUB_REPOSITORY}/pages/deployments/${sha}/cancel" -X POST 2>/dev/null || true
+          done
           sleep 15
         env:
           GH_TOKEN: ${{ github.token }}
